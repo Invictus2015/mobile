@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>	
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="phonegap.js"></script>
+ <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+ <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="page1">
+<div data-role="header" data-position="fixed">
+<h1>Testing</h1> 
+<a href="#page2" class="ui-btn ui-btn-right ui-icon-carat-r ui-btn-icon-right" data-transition="slidefade">See Results</a>
+</div>
+<div role="main" class="ui-content">
+<form name="mainf" id="mainf" action="testit.php" method="GET" onsubmit="return false;">
+<div class="ui-field-contain">
+<label for="id">User Name:</label><input type="text" name="id" id="id">
+<label for="pws">Password:</label><input type="password" name="pwd" id="pwd"><br /><br /><center>
+<button class="ui-btn ui-btn-icon-top ui-icon-carat-r ui-btn-inline" id="#gobut" onclick="showme();">Log In</button>
+<button class="ui-btn ui-btn-icon-top ui-icon-delete ui-btn-inline">Cancel</button>
+</center>
+</div>
+</form>
+</div>
+<div data-role="footer" data-position="fixed">
+<h4>Page Footer</h4>
+</div>
+</div>
+
+<div data-role="page" id="page2"  data-dialog="true">
+<div data-role="header" data-position="fixed">
+<h1>Results</h1>
+<a class="ui-btn" data-rel="back">Go Back</a>
+</div>
+<div role="main" class="ui-content">
+<ul data-role="listview" data-inset="true">
+  <li data-role="list-divider">User Name</li>
+  <li><a href="#"><div id="uid"></div></a></li>
+  <li data-role="list-divider">Password</li>
+  <li><a href="#"><div id="upwd"></div></a></li>
+  <li data-role="list-divider">Full Name</li>
+  <li><a href="#"><div id="uname"></div></a></li>
+</ul>
+</div>
+<div data-role="footer" data-position="fixed">
+<h4>Page Footer</h4>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+function doup(data)
+{
+        $("#uid").html(data.uid);
+        $("#uname").html(data.uname);
+        $("#upwd").html(data.upwd);
+        document.location="#page2";
+
+}
+
+function showme()
+{    
+        var url="http://arc-seven1.com.au/jon/fartest.php?id="+document.mainf.id.value+"&pwd="+document.mainf.pwd.value;
+        $.ajax({url: url, 
+        success : function(result) {
+            doup(jQuery.parseJSON(result));
+        }});
+}
+
+
+</script>
+
+</body>
+
+</html>
+
